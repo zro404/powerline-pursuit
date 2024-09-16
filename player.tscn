@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://61grgq7xc0ap"]
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
