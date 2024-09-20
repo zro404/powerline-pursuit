@@ -6,16 +6,23 @@ extends StaticBody3D
 @export var meshSize: int = 64
 @export var subdivide: int = 63
 @export var amplitude: int = 5
-@export var frequency: int = 1
-@export var noise = FastNoiseLite.new()
+@export var terrainNoise = FastNoiseLite.new()
+
 
 var RNG = RandomNumberGenerator.new()
 var current_seed = RNG.get_seed()
 
+
+var ROCK = preload("res://rock1.tscn")
+var CACTUS = preload("res://cactus.tscn")
+var PYLON = preload("res://electric_pylon.tscn")
+
+var vertArr: PackedVector3Array
+
 func _ready() -> void:
-	noise.frequency = 0.001*frequency
-	noise.seed = current_seed
+	terrainNoise.seed = current_seed
 	gen_mesh()
+	gen_foliage()
 
 func gen_mesh():
 	var planeMesh = PlaneMesh.new()
@@ -27,14 +34,15 @@ func gen_mesh():
 	var surfTool = SurfaceTool.new()
 	surfTool.create_from(planeMesh, 0)
 	var data = surfTool.commit_to_arrays()
-	var vertices = data[ArrayMesh.ARRAY_VERTEX]
+	vertArr = data[ArrayMesh.ARRAY_VERTEX]
 
 
 	# for vertex in vertices:
-	for i in vertices.size():
-		var vertex = vertices[i]
-		vertices[i].y = noise.get_noise_2d(vertex.x, vertex.z) * amplitude
-	data[ArrayMesh.ARRAY_VERTEX] = vertices
+	for i in vertArr.size():
+		var vertex = vertArr[i]
+		vertArr[i].y = terrainNoise.get_noise_2d(vertex.x, vertex.z) * amplitude
+		vertArr[i].y = clamp(vertArr[i].y, 0, amplitude)
+	data[ArrayMesh.ARRAY_VERTEX] = vertArr
 
 	var arrMesh = ArrayMesh.new()
 	arrMesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, data)
@@ -45,6 +53,27 @@ func gen_mesh():
 	$TerrainMesh.mesh = surfTool.commit()
 	$TerrainCollider.shape = arrMesh.create_trimesh_shape()
 
+
+func gen_foliage():
+	var submeshSize = (float(meshSize)/(subdivide+1))
+	for v in vertArr:
+		if v.x == 0 && v.z == 0:
+			continue
+
+		var foliage
+
+		if v.z == submeshSize*2.0 && fmod(v.x,submeshSize*4.0) == 0 && abs(v.x) != 500:
+			foliage = PYLON.instantiate()
+
+		elif randf() > 0.9:
+			if randf() >= 0.5:
+				foliage = CACTUS.instantiate()
+			else:
+				foliage = ROCK.instantiate()
+
+		if foliage:
+			add_child(foliage)
+			foliage.global_position = v
 
 
 func _process(_delta: float) -> void:
