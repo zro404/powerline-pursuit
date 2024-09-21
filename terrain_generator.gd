@@ -19,6 +19,8 @@ var PYLON = preload("res://electric_pylon.tscn")
 
 var vertArr: PackedVector3Array
 
+var pylonArr = []
+
 func _ready() -> void:
 	terrainNoise.seed = current_seed
 	gen_mesh()
@@ -37,7 +39,6 @@ func gen_mesh():
 	vertArr = data[ArrayMesh.ARRAY_VERTEX]
 
 
-	# for vertex in vertices:
 	for i in vertArr.size():
 		var vertex = vertArr[i]
 		vertArr[i].y = terrainNoise.get_noise_2d(vertex.x, vertex.z) * amplitude
@@ -60,20 +61,22 @@ func gen_foliage():
 		if v.x == 0 && v.z == 0:
 			continue
 
-		var foliage
+		var obj
 
-		if v.z == submeshSize*2.0 && fmod(v.x,submeshSize*4.0) == 0 && abs(v.x) != 500:
-			foliage = PYLON.instantiate()
+		if (v.z == submeshSize*2.0 || abs(v.z) == submeshSize*18.0) && fmod(v.x,submeshSize*4.0) == 0 && abs(v.x) != 500:
+			obj = PYLON.instantiate()
+			add_child(obj)
+			obj.global_position = v
+			pylonArr.append(obj)
 
 		elif randf() > 0.9:
 			if randf() >= 0.5:
-				foliage = CACTUS.instantiate()
+				obj = CACTUS.instantiate()
 			else:
-				foliage = ROCK.instantiate()
+				obj = ROCK.instantiate()
 
-		if foliage:
-			add_child(foliage)
-			foliage.global_position = v
+			add_child(obj)
+			obj.global_position = v
 
 
 func _process(_delta: float) -> void:

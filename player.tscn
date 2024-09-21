@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://crhwu317qq6x7"]
+[gd_scene load_steps=18 format=4 uid="uid://crhwu317qq6x7"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_djsii"]
 [ext_resource type="Texture2D" uid="uid://dxobyrkx8olpl" path="res://assets/colormap.png" id="2_xee2q"]
@@ -184,6 +184,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_hsukt")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fpkb2"]
+albedo_color = Color(0.35, 1, 0, 1)
+metallic_specular = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ra4ir"]
+material = SubResource("StandardMaterial3D_fpkb2")
+
 [node name="Player" type="VehicleBody3D"]
 collision_mask = 14
 gravity_scale = 4.0
@@ -252,3 +259,11 @@ suspension_stiffness = 20.0
 mesh = SubResource("ArrayMesh_cnocd")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_dh6f0")
+
+[node name="guidePivot" type="Node3D" parent="."]
+
+[node name="guideMesh" type="MeshInstance3D" parent="guidePivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52478, 3.37951)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_ra4ir")
+skeleton = NodePath("../..")

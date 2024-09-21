@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=4 uid="uid://cfgajjixva8rp"]
+[gd_scene load_steps=14 format=4 uid="uid://cfgajjixva8rp"]
 
+[ext_resource type="Script" path="res://electric_pylon.gd" id="1_k3l0l"]
 [ext_resource type="Material" uid="uid://bal33r1on2qwm" path="res://assets/materials/pylon_material.tres" id="2_po3eh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u7aba"]
@@ -77,9 +78,18 @@ shadow_mesh = SubResource("ArrayMesh_v3c4c")
 [sub_resource type="BoxShape3D" id="BoxShape3D_thehq"]
 size = Vector3(15, 12.0438, 15)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1w3ph"]
+transparency = 1
+albedo_color = Color(0.55, 1, 0, 0.133333)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mfd8d"]
+material = SubResource("StandardMaterial3D_1w3ph")
+size = Vector3(15, 5, 15)
+
 [node name="ElectricPylon" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506836, 0)
 collision_layer = 8
+script = ExtResource("1_k3l0l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0116425, 5.86383, -0.00839233)
@@ -103,3 +113,10 @@ collision_layer = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0198975, 5.40448, 0)
 shape = SubResource("BoxShape3D_thehq")
+
+[node name="FeedbackMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+visible = false
+mesh = SubResource("BoxMesh_mfd8d")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_player_entered"]
