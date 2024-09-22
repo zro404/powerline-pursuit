@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3 uid="uid://ch4oil7neuxrf"]
+
+[ext_resource type="Texture2D" uid="uid://16lokfmw0i7k" path="res://assets/textures/minigame_background.png" id="1_5kbm8"]
+[ext_resource type="Script" path="res://minigame.gd" id="1_pqdu2"]
+[ext_resource type="Texture2D" uid="uid://daopvpkjw58og" path="res://assets/minigame_target.png" id="2_nij5b"]
+[ext_resource type="PackedScene" uid="uid://b0icxb1xb8nbq" path="res://minigame_controls.tscn" id="3_6my53"]
+[ext_resource type="Texture2D" uid="uid://b2i4ubds7ir8c" path="res://assets/minigame_target_active.png" id="4_5i80c"]
+[ext_resource type="FontFile" uid="uid://rmfftojoxh0f" path="res://assets/fonts/joystix monospace.otf" id="5_y3gn1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dr40y"]
+size = Vector2(12, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n60i0"]
+size = Vector2(7, 7.1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tpohn"]
+font = ExtResource("5_y3gn1")
+
+[sub_resource type="LabelSettings" id="LabelSettings_spur0"]
+font = ExtResource("5_y3gn1")
+
+[node name="Minigame" type="Node2D"]
+script = ExtResource("1_pqdu2")
+speed = 250
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(453.514, 149.004)
+scale = Vector2(0.93643, 0.544428)
+texture = ExtResource("1_5kbm8")
+
+[node name="Target" type="Area2D" parent="."]
+position = Vector2(451, 148)
+scale = Vector2(10, 10)
+collision_layer = 2
+
+[node name="TargetInactive" type="Sprite2D" parent="Target"]
+texture_filter = 1
+scale = Vector2(1, 1)
+texture = ExtResource("2_nij5b")
+
+[node name="TargetActive" type="Sprite2D" parent="Target"]
+visible = false
+texture_filter = 1
+scale = Vector2(1, 1)
+texture = ExtResource("4_5i80c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Target"]
+position = Vector2(-2, 0)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_dr40y")
+
+[node name="ObjContainer" type="CharacterBody2D" parent="."]
+position = Vector2(688, 141)
+scale = Vector2(10, 10)
+collision_mask = 2
+
+[node name="MinigameControls" parent="ObjContainer" instance=ExtResource("3_6my53")]
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjContainer"]
+position = Vector2(-0.5, 0.45)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_n60i0")
+
+[node name="MinigameControls2" parent="ObjContainer" instance=ExtResource("3_6my53")]
+position = Vector2(27.6, 0)
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ObjContainer"]
+position = Vector2(27.1, 0.45)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_n60i0")
+
+[node name="MinigameControls3" parent="ObjContainer" instance=ExtResource("3_6my53")]
+position = Vector2(53.7, 0)
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="ObjContainer"]
+position = Vector2(53.2, 0.45)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_n60i0")
+
+[node name="MinigameControls4" parent="ObjContainer" instance=ExtResource("3_6my53")]
+position = Vector2(81, 0)
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="ObjContainer"]
+position = Vector2(80.5, 0.45)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_n60i0")
+
+[node name="Score" type="HBoxContainer" parent="."]
+offset_left = 29.0
+offset_top = 15.0
+offset_right = 101.0
+offset_bottom = 55.0
+
+[node name="Label" type="Label" parent="Score"]
+layout_mode = 2
+text = "Score: "
+label_settings = SubResource("LabelSettings_tpohn")
+
+[node name="ScoreLabel" type="Label" parent="Score"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_spur0")
+
+[connection signal="body_entered" from="Target" to="." method="_on_target_body_entered"]
+[connection signal="body_exited" from="Target" to="." method="_on_target_body_exited"]

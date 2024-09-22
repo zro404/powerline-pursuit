@@ -1,71 +1,45 @@
-[gd_scene load_steps=6 format=3 uid="uid://bq0gli62k07ef"]
+[gd_scene load_steps=7 format=3 uid="uid://b0icxb1xb8nbq"]
 
-[ext_resource type="FontFile" uid="uid://rmfftojoxh0f" path="res://assets/fonts/joystix monospace.otf" id="1_xygja"]
+[ext_resource type="Texture2D" uid="uid://csxxti6vo78fj" path="res://assets/minigame_letters.png" id="1_vi55u"]
+[ext_resource type="Script" path="res://minigame_controls.gd" id="1_w87tm"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_nu603"]
-font = ExtResource("1_xygja")
-font_size = 40
-font_color = Color(0.92549, 0.152941, 0.247059, 1)
-outline_size = 10
-shadow_size = 0
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dj5x"]
+atlas = ExtResource("1_vi55u")
+region = Rect2(0, 0, 16, 0)
 
-[sub_resource type="LabelSettings" id="LabelSettings_cvv3e"]
-font = ExtResource("1_xygja")
-font_size = 40
-font_color = Color(0.211765, 0.772549, 0.956863, 1)
-outline_size = 10
-shadow_size = 0
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wsp1"]
+atlas = ExtResource("1_vi55u")
+region = Rect2(16, 0, 16, 0)
 
-[sub_resource type="LabelSettings" id="LabelSettings_70xe8"]
-font = ExtResource("1_xygja")
-font_size = 40
-font_color = Color(0.615686, 0.901961, 0.305882, 1)
-outline_size = 8
-shadow_size = 0
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqqv0"]
+atlas = ExtResource("1_vi55u")
+region = Rect2(32, 0, 16, 0)
 
-[sub_resource type="LabelSettings" id="LabelSettings_6l2gk"]
-font = ExtResource("1_xygja")
-font_size = 40
-font_color = Color(0.639216, 0.278431, 1, 1)
-outline_size = 10
-shadow_size = 0
+[sub_resource type="AtlasTexture" id="AtlasTexture_t58wy"]
+atlas = ExtResource("1_vi55u")
+region = Rect2(48, 0, 16, 0)
 
-[node name="MinigameControls" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MinigameControls" type="Node2D"]
+scale = Vector2(10, 10)
+script = ExtResource("1_w87tm")
 
-[node name="W" type="Label" parent="."]
+[node name="W" type="Sprite2D" parent="."]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "w"
-label_settings = SubResource("LabelSettings_nu603")
+texture_filter = 1
+texture = SubResource("AtlasTexture_2dj5x")
 
-[node name="A" type="Label" parent="."]
+[node name="A" type="Sprite2D" parent="."]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "A"
-label_settings = SubResource("LabelSettings_cvv3e")
+texture_filter = 1
+texture = SubResource("AtlasTexture_0wsp1")
 
-[node name="S" type="Label" parent="."]
+[node name="S" type="Sprite2D" parent="."]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "S"
-label_settings = SubResource("LabelSettings_70xe8")
+texture_filter = 1
+texture = SubResource("AtlasTexture_kqqv0")
 
-[node name="D" type="Label" parent="."]
+[node name="D" type="Sprite2D" parent="."]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "D"
-label_settings = SubResource("LabelSettings_6l2gk")
+texture_filter = 1
+position = Vector2(-1, 0)
+texture = SubResource("AtlasTexture_t58wy")

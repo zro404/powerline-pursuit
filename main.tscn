@@ -1,49 +1,68 @@
-[gd_scene load_steps=8 format=3 uid="uid://6g5lq8teerwy"]
+[gd_scene load_steps=5 format=3 uid="uid://be23fhjrysoh1"]
 
-[ext_resource type="PackedScene" uid="uid://bd8qapyflopgl" path="res://terrain.tscn" id="1_2rm3d"]
 [ext_resource type="Script" path="res://main.gd" id="1_5hvyp"]
-[ext_resource type="PackedScene" uid="uid://crhwu317qq6x7" path="res://player.tscn" id="2_77ugk"]
-[ext_resource type="PackedScene" uid="uid://cgwqi5vbh5spn" path="res://hud.tscn" id="2_mup8h"]
+[ext_resource type="FontFile" uid="uid://rmfftojoxh0f" path="res://assets/fonts/joystix monospace.otf" id="2_nyc1i"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fgf4o"]
-sky_top_color = Color(0.819243, 0.851618, 0.97371, 1)
-sky_horizon_color = Color(0.754811, 0.755155, 0.776677, 1)
-ground_horizon_color = Color(0.754811, 0.755155, 0.776677, 1)
+[sub_resource type="Theme" id="Theme_ksjrs"]
+default_font = ExtResource("2_nyc1i")
+default_font_size = 50
 
-[sub_resource type="Sky" id="Sky_cxbkv"]
-sky_material = SubResource("ProceduralSkyMaterial_fgf4o")
-
-[sub_resource type="Environment" id="Environment_idf7d"]
-background_mode = 2
-sky = SubResource("Sky_cxbkv")
+[sub_resource type="LabelSettings" id="LabelSettings_twq5t"]
+font = ExtResource("2_nyc1i")
+font_size = 70
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_5hvyp")
-reward = 20.0
 
-[node name="HUD" parent="." instance=ExtResource("2_mup8h")]
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ksjrs")
 
-[node name="Terrain" parent="." instance=ExtResource("1_2rm3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.72617, -1.52588e-05, 0.147858)
+[node name="Label" type="Label" parent="Menu"]
+layout_mode = 2
+offset_left = 481.0
+offset_top = 308.0
+offset_right = 1466.0
+offset_bottom = 392.0
+text = "Powerline Pursuit"
+label_settings = SubResource("LabelSettings_twq5t")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.825114, -0.119392, 0.552208, 0, 0.977416, 0.211325, -0.564967, 0.174367, -0.806479, 0, 0, 0)
-shadow_enabled = true
+[node name="PlayButton" type="Button" parent="Menu"]
+layout_mode = 0
+offset_left = 862.0
+offset_top = 605.0
+offset_right = 1036.0
+offset_bottom = 673.0
+text = "Play"
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_idf7d")
+[node name="PauseMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_ksjrs")
 
-[node name="Player" parent="." instance=ExtResource("2_77ugk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.3751, 0)
+[node name="Panel" type="Panel" parent="PauseMenu"]
+layout_mode = 0
+offset_left = -125.0
+offset_top = -104.0
+offset_right = -85.0
+offset_bottom = -64.0
+scale = Vector2(54.1317, 32.604)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 1.99435e-14, 8.74227e-08, 6.72192e-08, 0.639372, 0.768898, -5.58956e-08, 0.768898, -0.639372, 0, 25.1106, -17.3921)
-top_level = true
-current = true
+[node name="ExitButton" type="Button" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 860.0
+offset_top = 485.0
+offset_right = 1034.0
+offset_bottom = 553.0
+text = "Quit"
 
-[node name="Timer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 60.0
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="button_down" from="Menu/PlayButton" to="." method="_on_play_button_button_down"]
+[connection signal="button_down" from="PauseMenu/ExitButton" to="." method="_on_exit_button_button_down"]
