@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://6g5lq8teerwy"]
+[gd_scene load_steps=9 format=3 uid="uid://6g5lq8teerwy"]
 
 [ext_resource type="PackedScene" uid="uid://bd8qapyflopgl" path="res://terrain.tscn" id="1_2rm3d"]
 [ext_resource type="Script" path="res://game.gd" id="1_5hvyp"]
 [ext_resource type="PackedScene" uid="uid://crhwu317qq6x7" path="res://player.tscn" id="2_77ugk"]
 [ext_resource type="PackedScene" uid="uid://cgwqi5vbh5spn" path="res://hud.tscn" id="2_mup8h"]
+[ext_resource type="AudioStream" uid="uid://bfc74txpo43lx" path="res://assets/feedback.wav" id="5_2khep"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fgf4o"]
 sky_top_color = Color(0.819243, 0.851618, 0.97371, 1)
@@ -19,6 +20,7 @@ sky = SubResource("Sky_cxbkv")
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_5hvyp")
+reward = 5.0
 
 [node name="HUD" parent="." instance=ExtResource("2_mup8h")]
 
@@ -27,6 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.72617, -1.52588e-05, 0.147
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.825114, -0.119392, 0.552208, 0, 0.977416, 0.211325, -0.564967, 0.174367, -0.806479, 0, 0, 0)
+light_energy = 3.0
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -48,6 +51,9 @@ autostart = true
 [node name="RewardHideTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="FeedbackAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2khep")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="RewardHideTimer" to="." method="_on_reward_hide_timer_timeout"]

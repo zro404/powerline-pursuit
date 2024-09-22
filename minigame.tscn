@@ -21,7 +21,7 @@ font = ExtResource("5_y3gn1")
 
 [node name="Minigame" type="Node2D"]
 script = ExtResource("1_pqdu2")
-speed = 250
+speed = 500
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -36,18 +36,15 @@ collision_layer = 2
 
 [node name="TargetInactive" type="Sprite2D" parent="Target"]
 texture_filter = 1
-scale = Vector2(1, 1)
 texture = ExtResource("2_nij5b")
 
 [node name="TargetActive" type="Sprite2D" parent="Target"]
 visible = false
 texture_filter = 1
-scale = Vector2(1, 1)
 texture = ExtResource("4_5i80c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Target"]
 position = Vector2(-2, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dr40y")
 
 [node name="ObjContainer" type="CharacterBody2D" parent="."]
@@ -60,7 +57,6 @@ scale = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObjContainer"]
 position = Vector2(-0.5, 0.45)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_n60i0")
 
 [node name="MinigameControls2" parent="ObjContainer" instance=ExtResource("3_6my53")]
@@ -69,7 +65,6 @@ scale = Vector2(1, 1)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ObjContainer"]
 position = Vector2(27.1, 0.45)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_n60i0")
 
 [node name="MinigameControls3" parent="ObjContainer" instance=ExtResource("3_6my53")]
@@ -78,7 +73,6 @@ scale = Vector2(1, 1)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="ObjContainer"]
 position = Vector2(53.2, 0.45)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_n60i0")
 
 [node name="MinigameControls4" parent="ObjContainer" instance=ExtResource("3_6my53")]
@@ -87,7 +81,6 @@ scale = Vector2(1, 1)
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="ObjContainer"]
 position = Vector2(80.5, 0.45)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_n60i0")
 
 [node name="Score" type="HBoxContainer" parent="."]

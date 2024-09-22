@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://be23fhjrysoh1"]
+[gd_scene load_steps=7 format=3 uid="uid://be23fhjrysoh1"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_5hvyp"]
 [ext_resource type="FontFile" uid="uid://rmfftojoxh0f" path="res://assets/fonts/joystix monospace.otf" id="2_nyc1i"]
+[ext_resource type="AudioStream" uid="uid://7l4cuauxo3e4" path="res://assets/marimba.mp3" id="3_1cy3n"]
 
 [sub_resource type="Theme" id="Theme_ksjrs"]
 default_font = ExtResource("2_nyc1i")
@@ -10,6 +11,10 @@ default_font_size = 50
 [sub_resource type="LabelSettings" id="LabelSettings_twq5t"]
 font = ExtResource("2_nyc1i")
 font_size = 70
+
+[sub_resource type="LabelSettings" id="LabelSettings_42qte"]
+font = ExtResource("2_nyc1i")
+font_size = 80
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_5hvyp")
@@ -40,6 +45,14 @@ offset_right = 1036.0
 offset_bottom = 673.0
 text = "Play"
 
+[node name="Label2" type="Label" parent="Menu"]
+layout_mode = 0
+offset_left = 731.0
+offset_top = 995.0
+offset_right = 1186.0
+offset_bottom = 1055.0
+text = "By: zro404 "
+
 [node name="PauseMenu" type="Control" parent="."]
 visible = false
 layout_mode = 3
@@ -56,7 +69,7 @@ offset_right = -85.0
 offset_bottom = -64.0
 scale = Vector2(54.1317, 32.604)
 
-[node name="ExitButton" type="Button" parent="PauseMenu"]
+[node name="ExitButton1" type="Button" parent="PauseMenu"]
 layout_mode = 0
 offset_left = 860.0
 offset_top = 485.0
@@ -64,5 +77,54 @@ offset_right = 1034.0
 offset_bottom = 553.0
 text = "Quit"
 
+[node name="GameOver" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_ksjrs")
+
+[node name="Panel2" type="Panel" parent="GameOver"]
+layout_mode = 0
+offset_left = -125.0
+offset_top = -104.0
+offset_right = -85.0
+offset_bottom = -64.0
+scale = Vector2(54.1317, 32.604)
+
+[node name="Label" type="Label" parent="GameOver"]
+layout_mode = 0
+offset_left = 679.0
+offset_top = 305.0
+offset_right = 1275.0
+offset_bottom = 401.0
+text = "Game Over"
+label_settings = SubResource("LabelSettings_42qte")
+
+[node name="Restart" type="Button" parent="GameOver"]
+layout_mode = 0
+offset_left = 798.0
+offset_top = 608.0
+offset_right = 1088.0
+offset_bottom = 676.0
+text = "Restart
+"
+
+[node name="ExitButton2" type="Button" parent="GameOver"]
+layout_mode = 0
+offset_left = 860.0
+offset_top = 717.0
+offset_right = 1034.0
+offset_bottom = 785.0
+text = "Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1cy3n")
+autoplay = true
+parameters/looping = true
+
 [connection signal="button_down" from="Menu/PlayButton" to="." method="_on_play_button_button_down"]
-[connection signal="button_down" from="PauseMenu/ExitButton" to="." method="_on_exit_button_button_down"]
+[connection signal="button_down" from="PauseMenu/ExitButton1" to="." method="_on_exit_button_1_button_down"]
+[connection signal="button_down" from="GameOver/Restart" to="." method="_on_restart_button_down"]
+[connection signal="button_down" from="GameOver/ExitButton2" to="." method="_on_exit_button_2_button_down"]

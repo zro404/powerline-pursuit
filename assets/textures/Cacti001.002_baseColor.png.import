@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4w2wsfpcrcqd"
 path.s3tc="res://.godot/imported/Cacti001.002_baseColor.png-448d095ce327f7d18175ccee5a9146fa.s3tc.ctex"
+path.etc2="res://.godot/imported/Cacti001.002_baseColor.png-448d095ce327f7d18175ccee5a9146fa.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/Cacti001.002_baseColor.png"
-dest_files=["res://.godot/imported/Cacti001.002_baseColor.png-448d095ce327f7d18175ccee5a9146fa.s3tc.ctex"]
+dest_files=["res://.godot/imported/Cacti001.002_baseColor.png-448d095ce327f7d18175ccee5a9146fa.s3tc.ctex", "res://.godot/imported/Cacti001.002_baseColor.png-448d095ce327f7d18175ccee5a9146fa.etc2.ctex"]
 
 [params]
 

@@ -10,6 +10,7 @@ extends Node3D
 @onready var rewardLabel = $HUD/VBoxContainer/RewardContainer/RewardLabel
 @onready var subViewPort = $HUD/MinigameView/SubViewport
 @onready var rewardHideTimer = $RewardHideTimer
+@onready var feedbackAudio = $FeedbackAudio
 
 @export var reward: float = 10.0
 
@@ -39,10 +40,11 @@ func _process(_delta: float) -> void:
 	timerLabel.text = str(int(timer.time_left))
 
 func _on_timer_timeout() -> void:
-	pass
+	Global.gameOver = true
 
 func playMiniGame() -> void:
 	if subViewPort.get_children().size() == 0:
+		feedbackAudio.play()
 		set_physics_process(false)
 		timeLeft = timer.time_left
 		timer.stop()
@@ -51,6 +53,7 @@ func playMiniGame() -> void:
 		$HUD/MinigameView.visible = true
 
 	if mGame.current == 4 && !mGame.is_in_area:
+		feedbackAudio.play()
 		$HUD/MinigameView.visible = false
 		mGame.queue_free()
 		currentPylon = -1

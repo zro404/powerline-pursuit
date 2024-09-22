@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://player.gd" id="1_djsii"]
 [ext_resource type="Texture2D" uid="uid://dxobyrkx8olpl" path="res://assets/colormap.png" id="2_xee2q"]
+[ext_resource type="PackedScene" uid="uid://ksukakr1qiwg" path="res://assets/guide.glb" id="3_br5pw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ldyg"]
 resource_name = "colormap"
@@ -184,18 +185,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_hsukt")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fpkb2"]
-albedo_color = Color(0.35, 1, 0, 1)
-metallic_specular = 0.0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ra4ir"]
-material = SubResource("StandardMaterial3D_fpkb2")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yusun"]
+albedo_color = Color(0.433333, 1, 0, 1)
 
 [node name="Player" type="VehicleBody3D"]
 collision_mask = 14
 gravity_scale = 4.0
-center_of_mass_mode = 1
-center_of_mass = Vector3(0, 0.35, 0)
 script = ExtResource("1_djsii")
 
 [node name="body" type="MeshInstance3D" parent="."]
@@ -211,6 +206,7 @@ shape = SubResource("ConvexPolygonShape3D_sj1iv")
 [node name="back-left" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.241473, -0.76)
 use_as_traction = true
+wheel_roll_influence = 0.01
 wheel_rest_length = 0.2
 wheel_friction_slip = 1.1
 suspension_travel = 0.5
@@ -224,6 +220,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_dh6f0")
 [node name="back-right" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.241473, -0.76)
 use_as_traction = true
+wheel_roll_influence = 0.01
 wheel_rest_length = 0.2
 wheel_friction_slip = 1.1
 suspension_travel = 0.5
@@ -237,6 +234,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_dh6f0")
 [node name="front-left" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.241473, 0.76)
 use_as_steering = true
+wheel_roll_influence = 0.01
 wheel_rest_length = 0.2
 wheel_friction_slip = 1.4
 suspension_travel = 0.5
@@ -250,6 +248,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_dh6f0")
 [node name="front-right" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.241473, 0.76)
 use_as_steering = true
+wheel_roll_influence = 0.01
 wheel_rest_length = 0.2
 wheel_friction_slip = 1.4
 suspension_travel = 0.5
@@ -262,8 +261,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_dh6f0")
 
 [node name="guidePivot" type="Node3D" parent="."]
 
-[node name="guideMesh" type="MeshInstance3D" parent="guidePivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52478, 3.37951)
+[node name="guide" parent="guidePivot" instance=ExtResource("3_br5pw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5205, 2.68769)
+
+[node name="Plane" parent="guidePivot/guide" index="0"]
 cast_shadow = 0
-mesh = SubResource("PlaneMesh_ra4ir")
-skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_yusun")
+
+[editable path="guidePivot/guide"]
